@@ -1,0 +1,9 @@
+# Invalid connection test
+Library|Student Union
+Student Union|Science Building
+Student Union|Library
+Library|Unknown Hall
+Library|Library
+Library|Engineering Building
+Library|
+Library|Student Union|Gym
