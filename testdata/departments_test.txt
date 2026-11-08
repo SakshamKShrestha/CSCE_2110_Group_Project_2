@@ -1,0 +1,8 @@
+# test file
+University|NONE
+College of Engineering|University
+college of engineering|University
+Physics|Nowhere
+Bad line without a bar
+|University
+Biology|University
