@@ -1,0 +1,6 @@
+# Invalid building test
+Library
+Student Union
+Science Building
+LIBRARY
+Engineering Building
