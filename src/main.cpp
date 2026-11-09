@@ -1,6 +1,8 @@
 
 #include "Facility.h"
 #include "HashTable.h"
+#include "CampusGraph.h"
+#include "DepartmentTree.h"
 
 #include <iostream>
 #include <fstream>
@@ -334,31 +336,42 @@ int main(int argc, char* argv[]) {
 
     HashTable hashTable;
     FacilityDatabase database;
+    CampusGraph graph;
+    DepartmentTree tree;
 
-    cout << "===== LOADING FACILITY RECORDS =====\n";
+    cout << "===== LOADING DATA =====\n";
 
     vector<string> buildings =
         loadBuildings(directory + "buildings.txt");
+    for (size_t i = 0; i < buildings.size(); i++)
+    {
+        graph.addBuilding(buildings[i]);
+    }
+    graph.loadConnections(directory + "connections.txt");
 
     loadFacilities(
-        directory + "data.txt",
+        directory + "facilities.txt",
         buildings,
         hashTable,
         database
     );
 
-    int choice;
+    tree.loadFromFile(directory + "departments.txt", "departments.txt");
+
+    int choice =-1;
 
     do {
-        cout << "\n===== FACILITY RECORD SYSTEM =====\n";
-        cout << "1. View All Facilities\n";
-        cout << "2. Search Facility by ID\n";
-        cout << "3. Search Facility by Name\n";
-        cout << "4. Search Facility by Category\n";
-        cout << "5. Generate Category Report\n";
-        cout << "6. Display Hash Table Statistics\n";
+                cout << "\n===== SMART CAMPUS MENU =====\n";
+        cout << "1. View all facilities\n";
+        cout << "2. Search facility by ID\n";
+        cout << "3. View campus graph\n";
+        cout << "4. Display graph counts and degrees\n";
+        cout << "5. Find reachable buildings (BFS)\n";
+        cout << "6. Add department\n";
+        cout << "7. Search department\n";
+        cout << "8. Display department hierarchy\n";
+        cout << "9. Run preorder traversal\n";
         cout << "0. Exit\n";
-
         cout << "\nEnter choice: ";
 
         string input;
@@ -369,6 +382,7 @@ int main(int argc, char* argv[]) {
 
         if (!(ss >> choice) || (ss >> extra)) {
             cout << "Invalid input. Please enter a number.\n";
+                        choice = -1;
             continue;
         }
 
@@ -381,51 +395,78 @@ int main(int argc, char* argv[]) {
             searchByID(hashTable);
             break;
 
-        case 3: {
+        case 3:
+            graph.displayGraph();
+            break;
+
+        case 4:
+            graph.displayGraphCounts();
+            break;
+
+        case 5: {
+            string start;
+            cout << "Enter starting building: ";
+            getline(cin, start);
+            start = trim(start);
+            if (start.empty()) {
+                cout << "Name cannot be blank.\n";
+                break;
+            }
+            graph.findReachableBuildings(start);
+            break;
+        }
+
+        case 6: {
             string name;
+            string parentName = "NONE";
 
-            cout << "Enter complete facility name: ";
+            cout << "Enter department name: ";
             getline(cin, name);
-
             name = trim(name);
-
             if (name.empty()) {
                 cout << "Name cannot be blank.\n";
                 break;
             }
 
-            database.searchByName(name);
-            break;
-        }
-
-        case 4: {
-            string category;
-
-            cout << "Enter complete category: ";
-            getline(cin, category);
-
-            category = trim(category);
-
-            if (category.empty()) {
-                cout << "Category cannot be blank.\n";
-                break;
+            if (!tree.isEmpty()) {
+                cout << "Enter parent department: ";
+                getline(cin, parentName);
+                parentName = trim(parentName);
+                if (parentName.empty()) {
+                    cout << "Name cannot be blank.\n";
+                    break;
+                }
             }
 
-            database.searchByCategory(category);
+            if (tree.addDepartment(name, parentName)) {
+                cout << "Department added: " << name << endl;
+            }
+            else {
+                cout << "Could not add " << name
+                     << ": duplicate name or unknown parent.\n";
+            }
             break;
         }
 
-        case 5:
-            categoryReport(database);
+        case 7: {
+            string name;
+            cout << "Enter department name: ";
+            getline(cin, name);
+            name = trim(name);
+            if (name.empty()) {
+                cout << "Name cannot be blank.\n";
+                break;
+            }
+            tree.searchDepartment(name);
+            break;
+        }
+
+        case 8:
+            tree.displayHierarchy();
             break;
 
-        case 6:
-            cout << "\nHash Table Capacity: "
-                 << hashTable.getCapacity();
-            cout << "\nEntries: "
-                 << hashTable.getEntries();
-            cout << "\nCollisions: "
-                 << hashTable.getCollisions() << endl;
+        case 9:
+            tree.printPreorder();
             break;
 
         case 0:

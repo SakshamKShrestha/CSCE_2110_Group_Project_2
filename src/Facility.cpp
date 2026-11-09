@@ -4,8 +4,26 @@
 
 using namespace std;
 
+static string normalize(const string& text)
+{
+    size_t first = text.find_first_not_of(" \t\r\n");
+    if (first == string::npos)
+    {
+        return "";
+    }
+    size_t last = text.find_last_not_of(" \t\r\n");
+    string result = text.substr(first, last - first + 1);
+    for (size_t i = 0; i < result.size(); i++)
+    {
+        result[i] = static_cast<char>(tolower(static_cast<unsigned char>(result[i])));
+    }
+    return result;
+}
+
+
 void FacilityDatabase::addFacility(const Facility& facility) {
-    facilities.push_back(facility);
+    facilities.push_back(facility); 
+}
 void printFacility(const Facility& f) {
     cout << "\nFacility ID: " << f.id
          << "\nFacility Name: " << f.name
