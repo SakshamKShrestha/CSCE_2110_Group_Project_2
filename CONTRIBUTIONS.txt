@@ -1,0 +1,17 @@
+CONTRIBUTIONS (Milestone 1)
+
+Noah Vargas
+- Module C: department tree (DepartmentTree). Add department, case-insensitive search showing
+  parent, child count and depth, indented hierarchy display, preorder
+  sequence, and the departments.txt loader.
+- Shared work: wrote the Milestone 1 menu in main.cpp and connected all
+  modules (loading the four data files in order) fixed compile errors in
+  Facility.cpp added .gitignore and README.txt.
+
+Jalyn Flowers
+- Module A: facility records, custom hash table, ID search.
+
+
+Saksham Shrestha
+- Module B: campus graph, graph counts and degrees, BFS.
+
