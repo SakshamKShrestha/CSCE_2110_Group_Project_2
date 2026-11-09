@@ -371,11 +371,16 @@ int main(int argc, char* argv[]) {
         cout << "7. Search department\n";
         cout << "8. Display department hierarchy\n";
         cout << "9. Run preorder traversal\n";
-        cout << "0. Exit\n";
+        cout << "10. Exit\n";
         cout << "\nEnter choice: ";
 
+        
         string input;
-        getline(cin, input);
+        if (!getline(cin, input)) {
+        cout << "\nEnd of input. Exiting program.\n";
+        break;
+        }
+
 
         stringstream ss(input);
         char extra;
@@ -469,6 +474,7 @@ int main(int argc, char* argv[]) {
             tree.printPreorder();
             break;
 
+        case 10:
         case 0:
             cout << "Exiting program.\n";
             break;
@@ -477,7 +483,7 @@ int main(int argc, char* argv[]) {
             cout << "Invalid menu choice.\n";
         }
 
-    } while (choice != 0);
+    } while (choice != 0 && choice != 10);
 
     return 0;
 }
