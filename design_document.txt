@@ -1,0 +1,40 @@
+CSCE 2110 - Foundation of Data structure
+Project 2
+Smart Campus Navigation & facility Analytics system
+DESIGN DOCUMENT
+
+**Module B: Campus Graph and BFS Navigation**
+Author: Saksham K. Shrestha
+
+CampusGraph class utilizes undirected and unweighted graph having adjacency list representation 
+of buildings and their connections. Adjacency list was selected since it is space efficient, dynamic 
+in nature and retains order of neighbors addition. Program is case insensitive while searching 
+for building and does not accept any invalid or repeated connection between buildings. 
+BFS algorithm makes use of queue and visited vector to locate reachability and distance of buildings. 
+Shortest path is determined by BFS algorithm. Connectivity report shows number of buildings, connections, 
+buildings with maximum degree, isolated buildings and connected components.
+
+Module A: Facilities and Custom Hash Table
+Author: Jalyn Flowers
+
+Facility and HashTable classes maintain the campus facility information in a hash table that has 253 buckets in total. 
+The hash function used is defined as follows: hash = (hash * 31 + c) % 253, where c stands for each character from facility ID. 
+The ID is transformed into its upper-case form to enable case insensitive search. Collisions are handled through separate 
+chaining using linked lists. It implies that there is no limit to the number of facilities stored in one bucket. 
+A collision occurs whenever a new facility is placed into the bucket that is not empty. If duplicate IDs are detected, 
+collision count does not increase. There is facility searching functionality provided by the program based on the facility name and category.
+
+Module C: Department General Tree
+Author: Noah Vargas
+
+The DepartmentTree class utilizes a general tree structure to represent the department hierarchy of the university.
+Each department is saved as a node which can have many children nodes. This allows the departments to be added below 
+their parent departments in the hierarchy. The program enables addition of departments, case-insensitive search for departments, 
+and display the hierarchy in an indented form. In preorder traversal, the parent node is accessed first before accessing its 
+child nodes.
+
+Program Organization
+
+The program is divided into separate modules: Facility, HashTable, CampusGraph, and DepartmentTree. Each module has its own 
+header and implementation files. The main.cpp file handles loading the four input files in the required order and provides 
+a menu to access the different functions. This modular structure makes the program easier to organize, test, and maintain.
