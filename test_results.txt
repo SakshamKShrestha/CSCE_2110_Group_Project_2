@@ -48,3 +48,105 @@ Result: warnings for line 4 (duplicate department name), line 5 (unknown parent
         department), line 6 (wrong number of fields), line 7 (empty field), then
         "departments_test.txt: 3 accepted, 4 rejected". A missing file prints
         "Warning: could not open nothing.txt" and does not crash. PASS
+
+
+CAMPUS GRAPH AND BFS (Saksham K. Shrestha)
+
+Test 13: Campus graph and statistics (Milestone 1 menu 3 and 4)
+Data: Instructor sample files (data/)
+Expected: 7 buildings, 6 connections, correct adjacency lists and degrees.
+Result: 7 buildings, 6 connections, correct neighbor order and degrees. Observatory has no connections. PASS
+
+Test 14: BFS reachability (Milestone 1 menu 5, "Library")
+Expected: 6 of 7 buildings reachable in BFS order with correct distances.
+Result: 6 of 7 buildings reachable in correct order, with distances 0–3. PASS
+
+Test 15: Isolated and unknown buildings
+Input: "Observatory" and "Unknown Hall"
+Expected: Observatory reaches only itself; unknown building displays an error.
+Result: Observatory reached only itself (distance 0). Unknown Hall displayed an error. PASS
+
+Test 16: Invalid records (testdata/graph_invalid)
+Expected: Reject duplicate buildings, reversed connections, unknown buildings, self-connections, and malformed records.
+Result: 4 buildings accepted, 1 rejected; 3 connections accepted, 5 rejected. Correct warnings displayed. PASS
+
+Test 17: Empty and missing files
+Input: testdata/graph_empty and nonexistent file paths
+Expected: Zero records for empty files, errors for missing files, and no crashes.
+Result: Empty files loaded with 0 accepted and 0 rejected. Empty-state messages displayed without crashing. Missing-file result not independently verified. PARTIAL
+
+Test 18: Windows line endings and whitespace (testdata/graph_windows)
+Expected: 3 buildings and 2 connections accepted; BFS reaches all buildings.
+Result: 3 buildings, 2 connections accepted. BFS reached all 3 with correct distances. PASS
+
+Test 19: Case-insensitive lookup and duplicate prevention
+Input: "  library  ", duplicate "LIBRARY", reversed connection "Student Union|Library"
+Expected: Library found at index 0; duplicate records rejected.
+Result: Library found at index 0; duplicate building and connection rejected. PASS
+
+Test 20: Shortest path and tie-breaking (Final)
+Input: Library to Engineering Building; Library to Gym
+Expected: Engineering Building via Student Union and Science Building (3 connections); Gym via Student Union (2 connections).
+Result: Both shortest paths matched expected routes and connection counts. PASS
+
+Test 21: Shortest-path edge cases (Final)
+Input: Library to Library; Library to Observatory; unknown endpoints
+Expected: 0 connections for same building, no path to Observatory, errors for unknown endpoints.
+Result: All three cases produced the expected outputs. PASS
+
+Test 22: Graph connectivity report (Final)
+Data: Instructor sample files (data/)
+Expected: 7 buildings, 6 connections, highest degree 3 (Student Union), Observatory isolated, 2 connected components.
+Result: All connectivity statistics matched expected values. PASS
+
+**FACILITIES AND CUSTOM HASH TABLE (Jalyn Flowers)**
+
+Test 23: Facility loading and display (Milestone 1 menu 1)
+Data: Instructor sample files (data/)
+Expected: 10 facilities accepted, displayed in file order with correct IDs, names, buildings, and categories.
+Result: Pending verification.
+
+Test 24: Facility ID search (Milestone 1 menu 2)
+Input: "F004", "f004", "004", and "F999"
+Expected: F004 and f004 find Computer Lab A; 004 displays an invalid-format error; F999 displays not found.
+Result: Pending verification.
+
+Test 25: Duplicate facility IDs and invalid records
+Input: Duplicate IDs with different capitalization, invalid IDs, missing fields, and unknown buildings.
+Expected: Invalid records rejected with filename, line number, and reason. First accepted duplicate ID remains unchanged.
+Result: Pending verification.
+
+Test 26: Hash collisions and duplicate prevention
+Input: Facility IDs that produce the same hash index using the custom hash function.
+Expected: Separate chaining handles collisions correctly. Collision count increases for accepted insertions into nonempty buckets but not for duplicate IDs.
+Result: Pending verification.
+
+Test 27: Empty and missing facility files
+Input: Empty facilities.txt and a nonexistent file path.
+Expected: Zero accepted records for empty files, file error for missing files, and no crash.
+Result: Pending verification.
+
+Test 28: Case-insensitive facility name search (Final menu 3)
+Input: "Room 101" and "room 101"
+Expected: Both searches return F005 and F007, with 2 matches.
+Result: Pending verification.
+
+Test 29: Facility category search (Final menu 4)
+Input: "Classroom", "classroom", and an unknown category.
+Expected: Classroom searches return 3 facilities; unknown category returns 0 matches.
+Result: Pending verification.
+
+Test 30: Facility category report (Final menu 16)
+Data: Instructor sample files (data/)
+Expected: 10 facilities total. Library: 2, Tutoring Center: 1, Student Services Office: 1, Computer Lab: 2, Classroom: 3, Recreation: 1. Percentages total 100.0%.
+Result: Pending verification.
+
+Test 31: Case-insensitive facility IDs and whitespace
+Input: "  f004  " and valid lowercase IDs in a data file.
+Expected: IDs normalized to uppercase before hashing, storing, and searching.
+Result: Pending verification.
+
+Test 32: Facility search with no matches
+Input: "Nonexistent Facility" and an unknown category.
+Expected: Clear no-match message and match count 0.
+Result: Pending verification.
