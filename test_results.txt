@@ -1,0 +1,50 @@
+TEST RESULTS (Milestone 1)
+
+DEPARTMENT TREE (Noah Vargas)
+
+Test 1: Empty tree, display hierarchy and preorder (menu 8 and 9)
+Data: testdata/empty_departments (departments.txt has no departments;
+      load summary: departments.txt: 0 accepted, 0 rejected)
+Result: both options print "The department tree is empty." PASS
+
+Test 2: Search for a department in an empty tree (menu 7, "Biology")
+Result: "Department not found: Biology" PASS
+
+Test 3: Add the first department to an empty tree (menu 6, "University")
+Result: no parent prompt; "Department added: University". It becomes the root. PASS
+
+Test 4: Root-only tree, hierarchy and preorder (menu 8 and 9)
+Result: both print the single line "University". PASS
+
+Test 5: Search the root, ignoring capitalization (menu 7, "university")
+Result: Name: University, Parent: None, Direct children: 0, Depth: 0. PASS
+
+Test 6: Add with an unknown parent (menu 6, "Chemistry", parent "Nowhere")
+Result: "Could not add Chemistry: duplicate name or unknown parent." Tree unchanged. PASS
+
+Test 7: Add a non-root department (menu 6, "Biology", parent "University")
+Result: "Department added: Biology". PASS
+
+Test 8: Add a duplicate department (menu 6, "Biology" again)
+Result: "Could not add Biology: duplicate name or unknown parent." PASS
+
+Test 9: Hierarchy and preorder after the additions (menu 8 and 9)
+Result: hierarchy shows "University" and "    Biology" (indented four spaces).
+        Preorder prints "University -> Biology". PASS
+
+Test 10: Search a non-root department (menu 7, "Biology")
+Result: Name: Biology, Parent: University, Direct children: 0, Depth: 1. PASS
+
+Test 11: Instructor data, all 7 departments (data/)
+Result: "departments.txt: 7 accepted, 0 rejected". Hierarchy shows University,
+        College of Engineering (Computer Science, Electrical Engineering),
+        College of Science (Mathematics, Physics), indented by depth.
+        Preorder prints all 7 in order. Search "university" shows Parent: None,
+        Direct children: 2, Depth: 0. Adding "University" again is rejected. PASS
+
+Test 12: Department loader with bad lines (testdata/departments_test.txt)
+Run with a small test driver that calls the loader (not part of the submission).
+Result: warnings for line 4 (duplicate department name), line 5 (unknown parent
+        department), line 6 (wrong number of fields), line 7 (empty field), then
+        "departments_test.txt: 3 accepted, 4 rejected". A missing file prints
+        "Warning: could not open nothing.txt" and does not crash. PASS
