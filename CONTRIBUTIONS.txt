@@ -9,9 +9,18 @@ Noah Vargas
   Facility.cpp added .gitignore and README.txt.
 
 Jalyn Flowers
-- Module A: facility records, custom hash table, ID search.
+- Module A: Facilities and custom hash table (Facility and HashTable). Implemented facility 
+record loading and validation, a custom hash function with collision handling, facility ID lookup, 
+duplicate ID detection, and facility searches by name and category.
+- Shared work: Developed and tested the facility management functions for integration with the 
+campus graph and department tree modules.
 
 
-Saksham Shrestha
-- Module B: campus graph, graph counts and degrees, BFS.
+Saksham K. Shrestha
+- Module B: Campus graph (CampusGraph). Implemented building and connection loading, case-insensitive
+building lookup, graph display, building counts and degrees, BFS reachability, shortest-path navigation,
+and the graph connectivity report using an adjacency list.
+- Shared work: Added the four instructor-provided data files, created test cases for duplicate 
+connections, invalid building names, empty files, and Windows line endings. 
+Tested the graph and BFS functions, fixed the input file extensions, and pushed the completed module and test files to GitHub.
 
