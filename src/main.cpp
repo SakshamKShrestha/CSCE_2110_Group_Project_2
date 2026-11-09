@@ -341,7 +341,7 @@ int main(int argc, char* argv[]) {
         loadBuildings(directory + "buildings.txt");
 
     loadFacilities(
-        directory + "facilities.txt",
+        directory + "data.txt",
         buildings,
         hashTable,
         database
