@@ -371,7 +371,7 @@ int main(int argc, char* argv[]) {
         cout << "7. Search department\n";
         cout << "8. Display department hierarchy\n";
         cout << "9. Run preorder traversal\n";
-        cout << "10. Exit\n";
+        cout << "0. Exit\n";
         cout << "\nEnter choice: ";
 
         
@@ -474,7 +474,7 @@ int main(int argc, char* argv[]) {
             tree.printPreorder();
             break;
 
-        case 10:
+        
         case 0:
             cout << "Exiting program.\n";
             break;
