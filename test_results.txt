@@ -1,53 +1,91 @@
-TEST RESULTS (Milestone 1)
+TEST RESULTS (Milestone 1 and Final)
 
 DEPARTMENT TREE (Noah Vargas)
+Menu numbers below are from the Final menu (9 add, 10 search, 11 hierarchy,
+12 preorder, 13 postorder, 14 level-order, 15 statistics).
 
-Test 1: Empty tree, display hierarchy and preorder (menu 8 and 9)
-Data: testdata/empty_departments (departments.txt has no departments;
-      load summary: departments.txt: 0 accepted, 0 rejected)
-Result: both options print "The department tree is empty." PASS
+Test 1: Empty tree, display hierarchy and preorder
+Input: testdata/empty_departments (departments.txt has no departments); menu 11, then 12
+Expected: both options print "The department tree is empty."
+Actual: both print "The department tree is empty." The load summary was
+        "departments.txt: 0 accepted, 0 rejected".
+Result: PASS
 
-Test 2: Search for a department in an empty tree (menu 7, "Biology")
-Result: "Department not found: Biology" PASS
+Test 2: Search for a department in an empty tree
+Input: testdata/empty_departments; menu 10, "Biology"
+Expected: a not-found message
+Actual: "Department not found: Biology"
+Result: PASS
 
-Test 3: Add the first department to an empty tree (menu 6, "University")
-Result: no parent prompt; "Department added: University". It becomes the root. PASS
+Test 3: Add the first department to an empty tree (no parent prompt)
+Input: testdata/empty_departments; menu 9, "University"
+Expected: no parent prompt; the department becomes the root
+Actual: no parent prompt; "Department added: University"
+Result: PASS
 
-Test 4: Root-only tree, hierarchy and preorder (menu 8 and 9)
-Result: both print the single line "University". PASS
+Test 4: Root-only tree, hierarchy and preorder
+Input: after Test 3; menu 11, then 12
+Expected: both show the single department "University"
+Actual: both print "University"
+Result: PASS
 
-Test 5: Search the root, ignoring capitalization (menu 7, "university")
-Result: Name: University, Parent: None, Direct children: 0, Depth: 0. PASS
+Test 5: Search the root, ignoring capitalization
+Input: after Test 3; menu 10, "university"
+Expected: Name University, Parent None, 0 direct children, Depth 0
+Actual: Name: University, Parent: None, Direct children: 0, Depth: 0
+Result: PASS
 
-Test 6: Add with an unknown parent (menu 6, "Chemistry", parent "Nowhere")
-Result: "Could not add Chemistry: duplicate name or unknown parent." Tree unchanged. PASS
+Test 6: Add with an unknown parent
+Input: after Test 3; menu 9, "Chemistry", parent "Nowhere"
+Expected: rejected, tree unchanged
+Actual: "Could not add Chemistry: duplicate name or unknown parent."
+Result: PASS
 
-Test 7: Add a non-root department (menu 6, "Biology", parent "University")
-Result: "Department added: Biology". PASS
+Test 7: Add a non-root department
+Input: after Test 3; menu 9, "Biology", parent "University"
+Expected: added
+Actual: "Department added: Biology"
+Result: PASS
 
-Test 8: Add a duplicate department (menu 6, "Biology" again)
-Result: "Could not add Biology: duplicate name or unknown parent." PASS
+Test 8: Add a duplicate department
+Input: after Test 7; menu 9, "Biology", parent "University"
+Expected: rejected
+Actual: "Could not add Biology: duplicate name or unknown parent."
+Result: PASS
 
-Test 9: Hierarchy and preorder after the additions (menu 8 and 9)
-Result: hierarchy shows "University" and "    Biology" (indented four spaces).
-        Preorder prints "University -> Biology". PASS
+Test 9: Hierarchy and preorder after the additions
+Input: after Test 7; menu 11, then 12
+Expected: Biology indented four spaces under University; preorder as a sequence
+Actual: hierarchy "University" then "    Biology"; preorder "University -> Biology"
+Result: PASS
 
-Test 10: Search a non-root department (menu 7, "Biology")
-Result: Name: Biology, Parent: University, Direct children: 0, Depth: 1. PASS
+Test 10: Search a non-root department
+Input: after Test 7; menu 10, "Biology"
+Expected: Parent University, 0 direct children, Depth 1
+Actual: Name: Biology, Parent: University, Direct children: 0, Depth: 1
+Result: PASS
 
-Test 11: Instructor data, all 7 departments (data/)
-Result: "departments.txt: 7 accepted, 0 rejected". Hierarchy shows University,
+Test 11: Instructor data, all 7 departments
+Input: data/; menu 11, 12, then 10 "university", then 9 "University"
+Expected: 7 accepted; indented hierarchy by depth; preorder of all 7; root has
+          2 children; adding University again is rejected
+Actual: "departments.txt: 7 accepted, 0 rejected". Hierarchy shows University,
         College of Engineering (Computer Science, Electrical Engineering),
-        College of Science (Mathematics, Physics), indented by depth.
-        Preorder prints all 7 in order. Search "university" shows Parent: None,
-        Direct children: 2, Depth: 0. Adding "University" again is rejected. PASS
+        College of Science (Mathematics, Physics), indented by depth. Preorder
+        prints all 7 in order. Root search: Parent None, Direct children 2,
+        Depth 0. The duplicate was rejected.
+Result: PASS
 
-Test 12: Department loader with bad lines (testdata/departments_test.txt)
-Run with a small test driver that calls the loader (not part of the submission).
-Result: warnings for line 4 (duplicate department name), line 5 (unknown parent
+Test 12: Department loader with bad lines
+Input: testdata/departments_test.txt, loaded with a small test driver that calls
+       the loader (the driver is not part of the submission)
+Expected: warnings with file name, line number and reason for each bad line; a
+          summary; a missing file does not crash
+Actual: warnings for line 4 (duplicate department name), line 5 (unknown parent
         department), line 6 (wrong number of fields), line 7 (empty field), then
-        "departments_test.txt: 3 accepted, 4 rejected". A missing file prints
-        "Warning: could not open nothing.txt" and does not crash. PASS
+        "departments_test.txt: 3 accepted, 4 rejected". A missing file printed
+        "Warning: could not open nothing.txt" and did not crash.
+Result: PASS
 
 
 CAMPUS GRAPH AND BFS (Saksham K. Shrestha)
@@ -150,3 +188,94 @@ Test 32: Facility search with no matches
 Input: "Nonexistent Facility" and an unknown category.
 Expected: Clear no-match message and match count 0.
 Result: Pending verification.
+
+DEPARTMENT TREE, MENU AND FINAL TESTS (Noah Vargas)
+
+Test 33: Postorder traversal on the sample tree
+Input: data/; menu 13
+Expected: children before their parent, root last
+Actual: "Computer Science -> Electrical Engineering -> College of Engineering ->
+        Mathematics -> Physics -> College of Science -> University"
+Result: PASS
+
+Test 34: Level-order traversal on the sample tree
+Input: data/; menu 14
+Expected: one level at a time (queue), siblings in insertion order
+Actual: "University -> College of Engineering -> College of Science -> Computer
+        Science -> Electrical Engineering -> Mathematics -> Physics"
+Result: PASS
+
+Test 35: Department statistics on the sample tree
+Input: data/; menu 15
+Expected: 7 departments, 4 leaves, height 2
+Actual: Total departments: 7, Leaf departments: 4, Tree height: 2
+Result: PASS
+
+Test 36: Postorder, level-order and statistics on an empty tree
+Input: testdata/empty_departments; menu 13, 14, 15
+Expected: empty messages for the traversals; statistics with total 0, leaves 0,
+          height N/A; no crash
+Actual: postorder and level-order each print "The department tree is empty."
+        Statistics print "Department statistics: total departments 0, leaves 0,
+        height N/A."
+Result: PASS
+
+Test 37: Postorder, level-order and statistics on a root-only tree
+Input: testdata/empty_departments; menu 9 "University", then 13, 14, 15
+Expected: no parent prompt; both traversals show the root; 1 department, 1 leaf,
+          height 0
+Actual: "Department added: University"; postorder prints "University"; level-order
+        prints "University"; Total departments: 1, Leaf departments: 1, Tree
+        height: 0
+Result: PASS
+
+Test 38: Invalid menu input
+Input: data/; blank line, "abc", "99", "-1", "1 2", "3.5", then 18
+Expected: an error message each time, no crash, no endless loop, menu keeps working
+Actual: blank, "abc", "1 2" and "3.5" each print "Invalid input. Please enter a
+        number." "99" and "-1" each print "Invalid menu choice." The menu
+        returned each time and "18" exited with "Exiting program."
+Result: PASS
+
+Test 39: Department names containing spaces
+Input: data/; menu 9 "College of Arts" with parent "University"; menu 10
+       "college of arts"; menu 11
+Expected: names with spaces are accepted and found, ignoring capitalization
+Actual: "Department added: College of Arts"; search shows Name: College of Arts,
+        Parent: University, Direct children: 0, Depth: 1; the hierarchy lists
+        "    College of Arts" under University
+Result: PASS
+
+Test 40: Blank names
+Input: data/; menu 9 with a blank name; menu 10 with only spaces; menu 7 with a
+       blank starting building
+Expected: an error and a return to the menu each time
+Actual: each prints "Name cannot be blank." and the menu returns
+Result: PASS
+
+Test 41: Repeated operations after errors
+Input: data/; menu 9 "History" with parent "Nowhere"; menu 9 "History" with
+       parent "College of Arts" (not in the tree in this run); menu 9 "History"
+       with parent "University"; menu 10 "Nowhere"; menu 10 "History"
+Expected: failed adds do not change the tree; a later valid add works; searches
+          still work
+Actual: the first two adds print "Could not add History: duplicate name or
+        unknown parent."; the third prints "Department added: History"; the
+        search for "Nowhere" prints "Department not found: Nowhere"; the search
+        for "History" shows Parent: University, Direct children: 0, Depth: 1
+Result: PASS
+
+Test 42: Department file with Windows line endings, extra whitespace, a # inside
+a name, a comment line, and a duplicate that differs by capitalization
+Input: testdata/dept_edge_cases (its departments.txt has Windows line endings);
+       menu 11, 12, 15
+Expected: "College #2" is accepted despite the #; the comment line is skipped;
+          whitespace around fields is ignored; "college #2" is rejected as a
+          duplicate; a line with the wrong field count and a line with an empty
+          field are rejected with warnings
+Actual: "Warning: departments.txt, line 4: duplicate department name", "line 5:
+        wrong number of fields", "line 6: empty field", then "departments.txt:
+        2 accepted, 3 rejected". Hierarchy shows "University" and
+        "    College #2"; preorder prints "University -> College #2"; Total
+        departments: 2, Leaf departments: 1, Tree height: 1.
+Result: PASS
