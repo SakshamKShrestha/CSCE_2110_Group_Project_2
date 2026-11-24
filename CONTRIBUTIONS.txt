@@ -1,4 +1,4 @@
-CONTRIBUTIONS (Milestone 1)
+CONTRIBUTIONS (Milestone 1 and Final)
 
 Noah Vargas
 - Module C: department tree (DepartmentTree). Add department, case-insensitive search showing
@@ -7,6 +7,17 @@ Noah Vargas
 - Shared work: wrote the Milestone 1 menu in main.cpp and connected all
   modules (loading the four data files in order) fixed compile errors in
   Facility.cpp added .gitignore and README.txt.
+- Final: postorder and level-order traversals (level-order uses a queue), department
+statistics (total departments, leaves and height, with N/A for an empty tree), a
+destructor that frees every tree node, the 18-option Final menu in main.cpp, and the
+department tree tests in test_results.txt.
+- Reflection: For the Final I finished Module C by adding postorder and level-order
+traversals, department statistics, and a destructor that frees every tree node. I also
+rebuilt the menu in main.cpp to the 18-option Final layout and made 0 or 18 exit. I
+reviewed Jay's Facility.cpp and main.cpp during Milestone 1. One bug I found and fixed
+was in Jay's menu loop, where invalid input set the choice to 0 and quit the program, so
+I reset the choice to -1 and the menu keeps running. I also wrote my tests in the
+required format and checked them against the program.
 
 Jalyn Flowers
 - Module A: Facilities and custom hash table (Facility and HashTable). Implemented facility 
@@ -24,3 +35,12 @@ and the graph connectivity report using an adjacency list.
 connections, invalid building names, empty files, and Windows line endings. 
 Tested the graph and BFS functions, fixed the input file extensions, and pushed the completed module and test files to GitHub.
 
+CODE REVIEW
+
+Noah Vargas reviewed Jay's Module A integration code (Facility.cpp and the draft
+main.cpp) in pull request #3. Findings: Facility.cpp was missing a closing brace
+after facilities.push_back(facility) and used a normalize helper that was never
+defined, so the project did not compile. The menu loop also quit on invalid input
+because the choice was set to 0. Fixes: added the brace, added a trim and lowercase
+normalize helper, and reset the choice to -1 on bad input. Jay was told about the
+findings and the fixes were merged.
