@@ -243,7 +243,59 @@ DepartmentTree::~DepartmentTree()
         destroyHelper(root);
     }
 }
+int DepartmentTree::countHelper(const DepartmentNode* node) const
+{
+    int total = 1;
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        total = total + countHelper(node->children[i]);
+    }
+    return total;
+}
 
+int DepartmentTree::leafHelper(const DepartmentNode* node) const
+{
+    if (node->children.empty())
+    {
+        return 1;
+    }
+    int leaves = 0;
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        leaves = leaves + leafHelper(node->children[i]);
+    }
+    return leaves;
+}
+
+int DepartmentTree::heightHelper(const DepartmentNode* node) const
+{
+    if (node->children.empty())
+    {
+        return 0;
+    }
+    int tallest = 0;
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        int childHeight = heightHelper(node->children[i]);
+        if (childHeight > tallest)
+        {
+            tallest = childHeight;
+        }
+    }
+    return tallest + 1;
+}
+
+void DepartmentTree::displayStatistics() const
+{
+    if (isEmpty())
+    {
+        std::cout << "Department statistics: total departments 0, leaves 0, height N/A." << std::endl;
+        return;
+    }
+    std::cout << "Total departments: " << countHelper(root) << std::endl;
+    std::cout << "Leaf departments: " << leafHelper(root) << std::endl;
+    std::cout << "Tree height: " << heightHelper(root) << std::endl;
+}
 void DepartmentTree::loadFromFile(const std::string& filePath, const std::string& fileName)
 {
     std::ifstream file(filePath);
