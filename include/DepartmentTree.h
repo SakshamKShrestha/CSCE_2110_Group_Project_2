@@ -3,6 +3,7 @@
 
 #include <string>
 #include <vector>
+#include <queue>
 
 struct DepartmentNode
 {
@@ -24,13 +25,22 @@ private:
     DepartmentNode* findHelper(DepartmentNode* current, const std::string& name) const;
     void displayHelper(const DepartmentNode* node, int depth) const;
         void preorderHelper(const DepartmentNode* node, bool& isFirst) const;
+            void postorderHelper(const DepartmentNode* node, bool& isFirst) const;
+                int countHelper(const DepartmentNode* node) const;
+    int leafHelper(const DepartmentNode* node) const;
+    int heightHelper(const DepartmentNode* node) const;
+                void destroyHelper(DepartmentNode* node);
+        
 public:
     DepartmentTree();
+    ~DepartmentTree();
     bool isEmpty() const;
     DepartmentNode* findDepartment(const std::string& name)const;
     bool addDepartment(const std::string& name, const std::string& parentName);
     void printPreorder() const;
-
+        void printPostorder() const;
+            void printLevelOrder() const;
+                 void displayStatistics() const;
         int getDepth(const DepartmentNode* node) const;
     void searchDepartment(const std::string& name) const;
     void displayHierarchy() const;

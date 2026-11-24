@@ -371,6 +371,9 @@ int main(int argc, char* argv[]) {
         cout << "7. Search department\n";
         cout << "8. Display department hierarchy\n";
         cout << "9. Run preorder traversal\n";
+        cout << "10. Run postorder traversal\n";
+        cout << "11. Run level-order traversal\n";
+        cout << "12. Display department statistics\n";
         cout << "0. Exit\n";
         cout << "\nEnter choice: ";
 
@@ -474,6 +477,18 @@ int main(int argc, char* argv[]) {
             tree.printPreorder();
             break;
 
+        case 10:
+            tree.printPostorder();
+            break;
+
+        case 11:
+            tree.printLevelOrder();
+            break;
+
+        case 12:
+            tree.displayStatistics();
+            break;
+
         
         case 0:
             cout << "Exiting program.\n";
@@ -483,7 +498,7 @@ int main(int argc, char* argv[]) {
             cout << "Invalid menu choice.\n";
         }
 
-    } while (choice != 0 && choice != 10);
+    } while (choice != 0);
 
     return 0;
 }
