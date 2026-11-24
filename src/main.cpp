@@ -364,17 +364,22 @@ int main(int argc, char* argv[]) {
                 cout << "\n===== SMART CAMPUS MENU =====\n";
         cout << "1. View all facilities\n";
         cout << "2. Search facility by ID\n";
-        cout << "3. View campus graph\n";
-        cout << "4. Display graph counts and degrees\n";
-        cout << "5. Find reachable buildings (BFS)\n";
-        cout << "6. Add department\n";
-        cout << "7. Search department\n";
-        cout << "8. Display department hierarchy\n";
-        cout << "9. Run preorder traversal\n";
-        cout << "10. Run postorder traversal\n";
-        cout << "11. Run level-order traversal\n";
-        cout << "12. Display department statistics\n";
-        cout << "0. Exit\n";
+        cout << "3. Search facility by name\n";
+        cout << "4. Search facility by category\n";
+        cout << "5. View campus graph\n";
+        cout << "6. Display graph counts and degrees\n";
+        cout << "7. Find reachable buildings (BFS)\n";
+        cout << "8. Find shortest path (BFS)\n";
+        cout << "9. Add department\n";
+        cout << "10. Search department\n";
+        cout << "11. Display department hierarchy\n";
+        cout << "12. Preorder traversal\n";
+        cout << "13. Postorder traversal\n";
+        cout << "14. Level-order traversal\n";
+        cout << "15. Department statistics\n";
+        cout << "16. Facility category report\n";
+        cout << "17. Graph connectivity report\n";
+        cout << "18. Exit\n";
         cout << "\nEnter choice: ";
 
         
@@ -403,15 +408,41 @@ int main(int argc, char* argv[]) {
             searchByID(hashTable);
             break;
 
-        case 3:
+        case 3: {
+            string name;
+            cout << "Enter facility name: ";
+            getline(cin, name);
+            name = trim(name);
+            if (name.empty()) {
+                cout << "Name cannot be blank.\n";
+                break;
+            }
+            database.searchByName(name);
+            break;
+        }
+
+        case 4: {
+            string category;
+            cout << "Enter facility category: ";
+            getline(cin, category);
+            category = trim(category);
+            if (category.empty()) {
+                cout << "Category cannot be blank.\n";
+                break;
+            }
+            database.searchByCategory(category);
+            break;
+        }
+
+        case 5:
             graph.displayGraph();
             break;
 
-        case 4:
+        case 6:
             graph.displayGraphCounts();
             break;
 
-        case 5: {
+        case 7: {
             string start;
             cout << "Enter starting building: ";
             getline(cin, start);
@@ -424,7 +455,24 @@ int main(int argc, char* argv[]) {
             break;
         }
 
-        case 6: {
+        case 8: {
+            string start;
+            string destination;
+            cout << "Enter starting building: ";
+            getline(cin, start);
+            start = trim(start);
+            cout << "Enter destination building: ";
+            getline(cin, destination);
+            destination = trim(destination);
+            if (start.empty() || destination.empty()) {
+                cout << "Name cannot be blank.\n";
+                break;
+            }
+            graph.findShortestPath(start, destination);
+            break;
+        }
+
+        case 9: {
             string name;
             string parentName = "NONE";
 
@@ -456,7 +504,7 @@ int main(int argc, char* argv[]) {
             break;
         }
 
-        case 7: {
+        case 10: {
             string name;
             cout << "Enter department name: ";
             getline(cin, name);
@@ -469,28 +517,35 @@ int main(int argc, char* argv[]) {
             break;
         }
 
-        case 8:
+        case 11:
             tree.displayHierarchy();
             break;
 
-        case 9:
+        case 12:
             tree.printPreorder();
             break;
 
-        case 10:
+        case 13:
             tree.printPostorder();
             break;
 
-        case 11:
+        case 14:
             tree.printLevelOrder();
             break;
 
-        case 12:
+        case 15:
             tree.displayStatistics();
             break;
 
-        
-        case 0:
+        case 16:
+            categoryReport(database);
+            break;
+
+        case 17:
+            graph.displayConnectivityReport();
+            break;
+
+        case 18:
             cout << "Exiting program.\n";
             break;
 
@@ -498,7 +553,7 @@ int main(int argc, char* argv[]) {
             cout << "Invalid menu choice.\n";
         }
 
-    } while (choice != 0);
+    } while (choice != 18);
 
     return 0;
 }
