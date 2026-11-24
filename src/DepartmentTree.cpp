@@ -2,6 +2,7 @@
 #include <cctype>
 #include <iostream>
 #include <fstream>
+#include <queue>
 static std::string toLowerCopy(const std::string& text)
 {
     std::string result = text;
@@ -173,6 +174,74 @@ void DepartmentTree::printPreorder() const
     bool isFirst = true;
     preorderHelper(root, isFirst);
     std::cout << std::endl;
+}
+void DepartmentTree::postorderHelper(const DepartmentNode* node, bool& isFirst) const
+{
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        postorderHelper(node->children[i], isFirst);
+    }
+    if (!isFirst)
+    {
+        std::cout << " -> ";
+    }
+    std::cout << node->name;
+    isFirst = false;
+}
+
+void DepartmentTree::printPostorder() const
+{
+    if (isEmpty())
+    {
+        std::cout << "The department tree is empty." << std::endl;
+        return;
+    }
+    bool isFirst = true;
+    postorderHelper(root, isFirst);
+    std::cout << std::endl;
+}
+void DepartmentTree::printLevelOrder() const
+{
+    if (isEmpty())
+    {
+        std::cout << "The department tree is empty." << std::endl;
+        return;
+    }
+    std::queue<const DepartmentNode*> waiting;
+    waiting.push(root);
+    bool isFirst = true;
+    while (!waiting.empty())
+    {
+        const DepartmentNode* current = waiting.front();
+        waiting.pop();
+        if (!isFirst)
+        {
+            std::cout << " -> ";
+        }
+        std::cout << current->name;
+        isFirst = false;
+        for (size_t i = 0; i < current->children.size(); i++)
+        {
+            waiting.push(current->children[i]);
+        }
+    }
+    std::cout << std::endl;
+}
+void DepartmentTree::destroyHelper(DepartmentNode* node)
+{
+    for (size_t i = 0; i < node->children.size(); i++)
+    {
+        destroyHelper(node->children[i]);
+    }
+    delete node;
+}
+
+DepartmentTree::~DepartmentTree()
+{
+    if (root != nullptr)
+    {
+        destroyHelper(root);
+    }
 }
 
 void DepartmentTree::loadFromFile(const std::string& filePath, const std::string& fileName)
