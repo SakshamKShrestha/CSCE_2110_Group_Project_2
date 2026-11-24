@@ -545,6 +545,7 @@ int main(int argc, char* argv[]) {
             graph.displayConnectivityReport();
             break;
 
+        case 0:
         case 18:
             cout << "Exiting program.\n";
             break;
@@ -553,7 +554,7 @@ int main(int argc, char* argv[]) {
             cout << "Invalid menu choice.\n";
         }
 
-    } while (choice != 18);
+        } while (choice != 0 && choice != 18);
 
     return 0;
 }
